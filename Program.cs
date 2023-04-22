@@ -13,10 +13,20 @@ namespace HarmonyMRE
     {
         public static void Main(string[] args)
         {
-            var harmony = new Harmony("HarmonyMRE");
-            harmony.PatchAll(typeof(Program).Assembly);
+            try
+            {
+                var harmony = new Harmony("HarmonyMRE");
+                harmony.PatchAll(typeof(Program).Assembly);
 
-            Console.WriteLine($"Patched {harmony.GetPatchedMethods().Count()} methods!");
+                Console.WriteLine($"Patched {harmony.GetPatchedMethods().Count()} methods!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Crashed while patching!");
+                Console.WriteLine(e);
+            }
+
+
             Console.WriteLine("Press Enter to exit.");
             Console.ReadLine();
         }
